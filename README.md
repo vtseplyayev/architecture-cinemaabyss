@@ -92,3 +92,30 @@ C4Container
 2. **Strangler Fig** — API Gateway постепенно переключает трафик от монолита к микросервисам через feature flag `MOVIES_MIGRATION_PERCENT`.
 3. **Event-Driven Integration** — доменные события публикуются в Kafka; потребители реагируют асинхронно, снижая связность сервисов.
 4. **Single Entry Point** — весь внешний трафик проходит через API Gateway, который отвечает за аутентификацию, rate limiting и маршрутизацию.
+
+---
+
+## Задание 2 — Proxy (Strangler Fig) и Events Service (Kafka)
+
+### 1. Proxy Service — API Gateway
+
+**Расположение:** [src/microservices/proxy/](src/microservices/proxy/)  
+**Стек:** ASP.NET 10, C#
+
+#### Как работает
+
+Proxy-сервис реализует паттерн **Strangler Fig**: все входящие запросы проходят через единую точку (`localhost:8000`), которая маршрутизирует их между монолитом и микросервисами на основе feature flag.
+
+### 2. Events Service — Kafka Producer + Consumer
+
+**Расположение:** [src/microservices/events/](src/microservices/events/)  
+**Стек:** ASP.NET 10, C#, Confluent.Kafka
+
+#### API
+
+| Метод | Endpoint | Топик Kafka | Описание |
+|---|---|---|---|
+| `GET` | `/api/events/health` | — | Healthcheck сервиса |
+| `POST` | `/api/events/movie` | `movie-events` | Событие о фильме (просмотр, оценка) |
+| `POST` | `/api/events/user` | `user-events` | Событие пользователя (вход, регистрация) |
+| `POST` | `/api/events/payment` | `payment-events` | Событие платежа |
