@@ -1,3 +1,4 @@
+using CinemaAbyss.Events.Services;
 using Confluent.Kafka;
 
 var kafkaBrokers = Environment.GetEnvironmentVariable("KAFKA_BROKERS") ?? "localhost:9092";
