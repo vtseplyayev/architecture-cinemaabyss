@@ -119,3 +119,42 @@ Proxy-сервис реализует паттерн **Strangler Fig**: все �
 | `POST` | `/api/events/movie` | `movie-events` | Событие о фильме (просмотр, оценка) |
 | `POST` | `/api/events/user` | `user-events` | Событие пользователя (вход, регистрация) |
 | `POST` | `/api/events/payment` | `payment-events` | Событие платежа |
+
+Скриншоты в папке tasks/task2.
+
+---
+
+## Задание 3 — CI/CD и Kubernetes
+
+### CI/CD
+
+Файл: [.github/workflows/docker-build-push.yml](.github/workflows/docker-build-push.yml)
+
+Pipeline собирает и пушит 4 Docker-образа в `ghcr.io/vtseplyayev/architecture-cinemaabyss/`:
+- `monolith:latest`
+- `movies-service:latest`
+- `events-service:latest`
+- `proxy-service:latest`
+
+После сборки запускается `docker compose up -d --build`, затем Postman-тесты через Newman.
+
+Тесты запускаются следующим образом:
+- `cd tests/postman`
+- `npm run test:kubernetes`
+
+Скриншоты в папке tasks/task3.
+
+---
+
+## Задание 4 — Helm Chart
+
+```bash
+# Удалить старое развёртывание
+kubectl delete all --all -n cinemaabyss
+kubectl delete namespace cinemaabyss
+
+# Установить через Helm
+helm install cinemaabyss .\src\kubernetes\helm --namespace cinemaabyss --create-namespace
+```
+
+Скриншоты в папке tasks/task4.
