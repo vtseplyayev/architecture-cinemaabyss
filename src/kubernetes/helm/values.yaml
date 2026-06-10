@@ -5,7 +5,7 @@ global:
 
 # Image pull secrets
 imagePullSecrets:
-  dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7ImF1dGgiOiJkblJ6WlhCc2VXRjVaWFk2WjJod1h6ZFRUVmxhTmxNME5XVXdNbE5IWVV4d1MxWnZZbUZ6U0ZGUGNreFJZVEp3Tm0wNGFBPT0ifX19
+  dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7ImF1dGgiOiJkblJ6WlhCc2VXRjVaWFk2WjJod1gwOXdiSEpDZW1rd1MzRTRkVWhUYmtOUVJHODFORFJ2ZDJKNU9HNVpRVE15TUd4SU1RPT0ifX19
 # Database configuration
 database:
   host: postgres
@@ -35,7 +35,7 @@ monolith:
   image:
     repository: ghcr.io/vtseplyayev/architecture-cinemaabyss/monolith
     tag: latest
-    pullPolicy: Never
+    pullPolicy: Always
   replicas: 1
   resources:
     limits:
@@ -55,7 +55,7 @@ proxyService:
   image:
     repository: ghcr.io/vtseplyayev/architecture-cinemaabyss/proxy-service
     tag: latest
-    pullPolicy: Never
+    pullPolicy: Always
   replicas: 1
   resources:
     limits:
@@ -75,7 +75,7 @@ moviesService:
   image:
     repository: ghcr.io/vtseplyayev/architecture-cinemaabyss/movies-service
     tag: latest
-    pullPolicy: Never
+    pullPolicy: Always
   replicas: 1
   resources:
     limits:
@@ -95,7 +95,7 @@ eventsService:
   image:
     repository: ghcr.io/vtseplyayev/architecture-cinemaabyss/events-service
     tag: latest
-    pullPolicy: Never
+    pullPolicy: Always
   replicas: 1
   resources:
     limits:
