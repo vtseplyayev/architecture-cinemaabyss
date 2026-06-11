@@ -59,7 +59,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./src/monolith
-          push: ${{ github.event_name != 'pull_request' }}
+          push: false
           tags: ${{ steps.meta-monolith.outputs.tags }}
           labels: ${{ steps.meta-monolith.outputs.labels }}
           cache-from: type=gha
@@ -81,7 +81,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./src/microservices/movies
-          push: ${{ github.event_name != 'pull_request' }}
+          push: false
           tags: ${{ steps.meta-movies.outputs.tags }}
           labels: ${{ steps.meta-movies.outputs.labels }}
           cache-from: type=gha
@@ -103,7 +103,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./src/microservices/events
-          push: ${{ github.event_name != 'pull_request' }}
+          push: false
           tags: ${{ steps.meta-events.outputs.tags }}
           labels: ${{ steps.meta-events.outputs.labels }}
           cache-from: type=gha
@@ -125,7 +125,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./src/microservices/proxy
-          push: ${{ github.event_name != 'pull_request' }}
+          push: false
           tags: ${{ steps.meta-proxy.outputs.tags }}
           labels: ${{ steps.meta-proxy.outputs.labels }}
           cache-from: type=gha
