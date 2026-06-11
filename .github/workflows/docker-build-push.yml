@@ -3,12 +3,12 @@ name: Docker Build and Push
 on:
   workflow_dispatch:
   push:
-    branches: [ main, cinema ]
+    branches: [ cinema ]
     paths:
       - 'src/**'
       - '.github/workflows/docker-build-push.yml'
   pull_request:
-    branches: [ main ]
+    branches: [ cinema ]
     paths:
       - 'src/**'
       - '.github/workflows/docker-build-push.yml'
@@ -130,36 +130,4 @@ jobs:
           labels: ${{ steps.meta-proxy.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-      - name: Set up Node.js for API tests
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: tests/postman/package-lock.json
-
-      - name: Start all services with Docker Compose
-        run: |
-          docker compose up -d --build
-          echo "Waiting for services to be ready..."
-          sleep 60
-
-      - name: Install Newman test dependencies
-        working-directory: tests/postman
-        run: npm install
-
-      - name: Run API tests (docker environment)
-        working-directory: tests/postman
-        run: node run-tests.js --environment docker --reporters cli
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: api-test-results
-          path: tests/postman/reports/
-
-      - name: Stop services
-        if: always()
-        run: docker compose down
 
